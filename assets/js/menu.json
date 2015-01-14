@@ -1,0 +1,449 @@
+[
+    {
+        "name": "Asian Dolce Latte",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Caffè Americano",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Caffè Americano",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Caffè Latte",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Caffè Latte",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Caffè Mocha",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Caffè Mocha",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Flavored Latte",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Caramel Latte",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Skinny Latte",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Hazelnut Latte",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Cappuccino",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Cappuccino",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Caramel Macchiato",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Caramel Macchiato",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "VanillaLatte_Small.jpg",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Vanilla Latte",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Espresso shot",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Espresso",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Espresso Con Panna",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Espresso Con Panna",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Espresso Macchiato",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Espresso Macchiato",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Caffè Americano",
+        "price": 16.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Caffè Americano",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Caffè Latte",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Caffè Latte",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Caffè Mocha",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Caffè Mocha",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Caramel Macchiato",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Caramel Macchiato",
+        "price": 14.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Flavored Latte",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Caramel Latte",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Image of an Iced Skinny Latte",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Hazelnut Latte",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Vanilla Latte",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+    {
+        "name": "Iced Vanilla Latte",
+        "price": 12.00,
+        "category": "Espresso Beverages"
+    },
+
+    {
+        "name": "Pike Place™ Roast",
+        "price": 12.00,
+        "category": "Brewed Coffee"
+    },
+    {
+        "name": "Brewed Coffee",
+        "price": 12.00,
+        "category": "Brewed Coffee"
+    },
+
+    {
+        "name": "Caramel Signature Hot Chocolate",
+        "price": 12.00,
+        "category": "Chocolate Beverages"
+    },
+    {
+        "name": "Hazelnut Signature Hot Chocolate",
+        "price": 12.00,
+        "category": "Chocolate Beverages"
+    },
+    {
+        "name": "Image of a Starbucks Hot Chocolate",
+        "price": 12.00,
+        "category": "Chocolate Beverages"
+    },
+    {
+        "name": "Hot Chocolate Classic",
+        "price": 13.00,
+        "category": "Chocolate Beverages"
+    },
+    {
+        "name": "Image of a Signature Hot Chocolate",
+        "price": 13.00,
+        "category": "Chocolate Beverages"
+    },
+    {
+        "name": "Starbucks® Signature Hot Chocolate",
+        "price": 13.00,
+        "category": "Chocolate Beverages"
+    },
+
+    {
+        "name": "Caramel Frappuccino® Blended Coffee",
+        "price": 13.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+    {
+        "name": "Caramel Frappuccino® Blended Beverage",
+        "price": 13.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+    {
+        "name": "Dark Mocha Frappuccino",
+        "price": 13.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+    {
+        "name": "Dark Mocha Frappuccino® Blended Beverage",
+        "price": 13.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+    {
+        "name": "Mocha Praline Frappuccino® Blended Beverage",
+        "price": 13.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+    {
+        "name": "Coffee Frappuccino® Blended Coffee",
+        "price": 13.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+    {
+        "name": "Coffee Frappuccino® Blended Beverage",
+        "price": 13.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+    {
+        "name": "Java Chip Frappuccino® Blended Coffee",
+        "price": 13.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+    {
+        "name": "Java Chip Frappuccino® Blended Beverage",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+    {
+        "name": "Espresso Frappuccino® Blended Coffee",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+    {
+        "name": "Espresso Frappuccino® Blended Coffee",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+    {
+        "name": "Mocha Blended Coffee Frappuccino®",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+    {
+        "name": "Mocha Frappuccino® Blended Coffee",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Coffee"
+    },
+
+    {
+        "name": "Mocha Blended Coffee Frappuccino®",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Crème’"
+    },
+    {
+        "name": "Chocolate Cream Frappuccino® Blended Beverage",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Crème’"
+    },
+    {
+        "name": "Java Chip Frappuccino® Blended Coffee",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Crème’"
+    },
+    {
+        "name": "Java Chip Cream Frappuccino® Blended Beverage",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Crème’"
+    },
+    {
+        "name": "Chocolate Cream Chip Frappuccino® Blended Beverage",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Crème’"
+    },
+    {
+        "name": "Vanilla Cream Frappuccino® Blended Beverage",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Crème’"
+    },
+    {
+        "name": "Green Tea Frappuccino® Blended Crème",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Crème’"
+    },
+    {
+        "name": "Green Tea Cream Frappuccino® Blended Beverage",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Crème’"
+    },
+    {
+        "name": "Caramel Frappuccino® Blended Coffee",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Crème’"
+    },
+    {
+        "name": "Caramel Frappuccino® Blended Beverage",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Crème’"
+    },
+
+    {
+        "name": "Mango Passion Fruit Frappuccino® Blended Juice Drink",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Juice Drinks"
+    },
+    {
+        "name": "Mango Passion Fruit with Soy milk Frappuccino® Blended Juice Drink",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Juice Drinks"
+    },
+    {
+        "name": "Mango Passion Fruit without Tea Frappuccino® Blended Juice Drink",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Juice Drinks"
+    },
+    {
+        "name": "Raspberry Black Currant Frappuccino® Blended Juice Drink",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Juice Drinks"
+    },
+    {
+        "name": "Raspberry Black Currant with Soy milk Frappuccino® Blended Juice Drink",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Juice Drinks"
+    },
+    {
+        "name": "Raspberry Black Currant without Tea Frappuccino® Blended Juice Drink",
+        "price": 12.00,
+        "category": "Frappuccino® Blended Juice Drinks"
+    },
+
+    {
+        "name": "Tazo® Earl Grey Brewed Tea",
+        "price": 12.00,
+        "category": "Brewed Tea"
+    },
+    {
+        "name": "Earl Grey Tea",
+        "price": 12.00,
+        "category": "Brewed Tea"
+    },
+    {
+        "name": "Tazo® Calm™ Brewed Tea",
+        "price": 12.00,
+        "category": "Brewed Tea"
+    },
+    {
+        "name": "Chamomile Tea",
+        "price": 12.00,
+        "category": "Brewed Tea"
+    },
+    {
+        "name": "Tazo® Zen Brewed Tea",
+        "price": 12.00,
+        "category": "Brewed Tea"
+    },
+    {
+        "name": "Spearmint Green Tea",
+        "price": 12.00,
+        "category": "Brewed Tea"
+    },
+    {
+        "name": "Englished Breakfast Tea",
+        "price": 12.00,
+        "category": "Brewed Tea"
+    },
+    {
+        "name": "English Breakfast",
+        "price": 12.00,
+        "category": "Brewed Tea"
+    },
+    {
+        "name": "Tazo® Earl Grey Tea Latte",
+        "price": 12.00,
+        "category": "Brewed Tea"
+    },
+    {
+        "name": "Black Tea Latte",
+        "price": 12.00,
+        "category": "Brewed Tea"
+    },
+    {
+        "name": "Tazo® Green Tea Latte",
+        "price": 12.00,
+        "category": "Brewed Tea"
+    },
+    {
+        "name": "Green Tea Latte",
+        "price": 12.00,
+        "category": "Brewed Tea"
+    },
+
+    {
+        "name": "Iced Shaken Passion Lemon Tea",
+        "price": 12.00,
+        "category": "Starbucks Iced Shaken Teas"
+    },
+    {
+        "name": "Iced Shaken Zen Lemon Tea",
+        "price": 12.00,
+        "category": "Starbucks Iced Shaken Teas"
+    }
+]

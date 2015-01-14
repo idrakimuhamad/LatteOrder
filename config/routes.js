@@ -41,7 +41,7 @@ module.exports.routes = {
   * Custom routes here...                                                    *
   *                                                                          *
   ***************************************************************************/
-  'post /firstime': {
+  'post /firsttime': {
     controller: 'MenusController',
     action: 'addDataFirstTime'
   },

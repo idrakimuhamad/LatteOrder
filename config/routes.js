@@ -41,22 +41,25 @@ module.exports.routes = {
   * Custom routes here...                                                    *
   *                                                                          *
   ***************************************************************************/
-  // Uses get to avoid passing of parameters and avoid it get written in db
-  'get /addDataFirstTime': {
-    controller: 'MenuController',
+  'post /firstime': {
+    controller: 'MenusController',
     action: 'addDataFirstTime'
   },
-  'post /clearAllMenu': {
-    controller: 'MenuController',
-    action: 'clearAllMenu'
+  'post /clearAllMenus': {
+    controller: 'MenusController',
+    action: 'clearAllMenus'
   },
   'post /clearAllLocations': {
     controller: 'LocationsController',
     action: 'clearAllLocations'
   },
-  'get /menu': {
-    controller: 'MenuController',
+  'get /menus': {
+    controller: 'MenusController',
     action: 'getMenu'
+  },
+  'get /restaurant': {
+    controller: 'LocationsController',
+    action: 'getClosestRestaurant'
   }
 
 };

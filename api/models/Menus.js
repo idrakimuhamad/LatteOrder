@@ -1,5 +1,5 @@
 /**
-* Menu.js
+* Menus.js
 *
 * @description :: Starbucks menu's models
 * @docs        :: http://sailsjs.org/#!documentation/models

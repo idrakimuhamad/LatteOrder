@@ -6,21 +6,22 @@
  */
 
 module.exports = {
+  // return the closest restaurant from the given coordinate
   getRestaurants: function (req, res, next) {
-    var options = {
-      lat: parseFloat(req.param('lat')),
-      lng: parseFloat(req.param('lng')),
-      radii : req.param('radii') ? parseFloat(req.param('radii')) : 5
-    };
+    if (req.is('application/json')) {
+      var options = {
+        lat: parseFloat(req.param('lat')),
+        lng: parseFloat(req.param('lng')),
+        radii : req.param('radii') ? parseFloat(req.param('radii')) : 5
+      };
 
-    LocationsService.getClosestRestaurant(options, function (err, results) {
-      if (err) return res.serverError(err);
-
-      return res.json({
-        statusCode: 200,
-        data: results
-      })
-    });
+      LocationsService.getClosestRestaurant(options, function (err, results) {
+        if (err) return res.serverError(err);
+        res.ok(results);
+      });
+    } else {
+      res.badRequest('Missing Content-Type: application/json');
+    }
   },
   clearAllLocations: function (req, res) {
     // quick way to remove all of the data from the collection, ready to be insert again

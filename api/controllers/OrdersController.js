@@ -7,65 +7,90 @@
 
 module.exports = {
 	insertOrder: function (req, res) {
-    var productId = req.param('productId'),
-        geo = {
-          lat: parseFloat(req.param('lat')),
-          lng: parseFloat(req.param('lng')),
-          radii : req.param('radii') ? parseFloat(req.param('radii')) : 5
-        },
-        orders = {};
+    if (req.is('application/json')) {
+      var productId = req.param('productId'),
+          geo = {
+            lat: parseFloat(req.param('lat')),
+            lng: parseFloat(req.param('lng')),
+            radii : req.param('radii') ? parseFloat(req.param('radii')) : 5
+          },
+          orders = {},
+          totalPrice = 0;
 
-    if (geo) {
-      LocationsService.getClosestRestaurant(geo, function (err, results) {
-        if (err) return res.serverError(err + ': Some problem while retrieving the restaurant');
+      if (geo) {
+        LocationsService.getClosestRestaurant(geo, function (err, results) {
+          if (err) return res.serverError(err + ': Some problem while retrieving the restaurant');
 
-        if (!results.length) {
-          return res.json({
-            statusCode: 200,
-            data: {
-              errorMessage: 'There are no restaurant that are close to your location.'
-            }
-          })
-        } else {
-          var address = results[0].name + ', ' + results[0].formatted_address;
+          if (!results.length) {
+            return res.json({
+              status: 'NO_NEAR_RESTAURANT',
+              message: 'There are no restaurant that are close to the given location.'
+            });
+          } else {
+            var address = results[0].name + ', ' + results[0].formatted_address;
 
-          MenusService.getAMenu(productId, function (err, results) {
-            if (err) return res.serverError(err + ': Some problem while retrieving the Menu');
+            MenusService.getMenuById(productId, function (err, results) {
+              if (err) return res.serverError(err + ': Some problem while retrieving the Menu');
 
-            // get the order number
-            OrdersService.orderNumber(function (err, od) {
-              if (err) return res.serverError(err + ': Some problem while generating the order number');
+              var menus = results;
+              // get the order number
+              OrdersService.orderNumber(function (err, od) {
+                if (err) return res.serverError(err + ': Some problem while generating the order number');
 
-              orders = {
-                orderNumber: od,
-                products: [{
-                  name: results[0].name,
-                  price: results[0].price.toFixed(2),
-                  category: results[0].category
-                }],
-                closestRestaurant: address,
-                status: 'confirm',
-                total: results[0].price.toFixed(2)
-              };
+                orders = {
+                  orderNumber: od,
+                  closestRestaurant: address,
+                  products: menus,
+                  status: 'confirm',
+                };
 
-              if (req.param('email')) {
-                orders.email = req.param('email');
-              } else if (req.param('phone')) {
-                orders.phone = req.param('phone');
-              }
+                menus.forEach(function (menu) {
+                  totalPrice += menu.price;
+                });
 
-              Orders.create(orders).exec(function insertOrder(err, order) {
-                if (err) return res.serverError(err + ': Some problem while creating the order');
+                orders.total = totalPrice.toFixed(2);
 
-                res.json({
-                  statusCode: 200,
-                  data: order
-                })
+                if (req.param('email')) {
+                  orders.email = req.param('email');
+                } else if (req.param('phone')) {
+                  orders.phone = req.param('phone');
+                }
+
+                Orders.create(orders).exec(function insertOrder(err, order) {
+                  if (err) return res.serverError(err + ': Some problem while creating the order');
+                  res.ok(order);
+                });
               });
             });
-          });
-        }
-      });
+          }
+        });
+      }
+    } else {
+      res.badRequest('Missing Content-Type: application/json');
+    }
+  },
+  lookupOrder: function (req, res) {
+    if (req.is('application/json')) {
+      // get the order number
+      var orderNumber = req.param('orderNumber');
+
+      // look up for the order
+      OrdersService.getOrderByOrderNumber(orderNumber, function (err, order) {
+        if (err) return res.serverError(err);
+        res.ok(order)
+      })
+    }
+  },
+  updateOrderStatus: function (req, res) {
+    if (req.is('application/json')) {
+      var orderNumber = req.param('orderNumber'), // get the order number
+          statusObj = { status: req.param('status') }; // get the status
+
+      // Update the status
+      OrdersService.updateOrder(orderNumber, statusObj, function (err, order) {
+        if (err) return res.serverError(err);
+        res.ok(order)
+      })
     }
   }
 };

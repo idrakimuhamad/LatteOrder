@@ -55,7 +55,7 @@ module.exports.routes = {
   },
   'get /menus': {
     controller: 'MenusController',
-    action: 'getMenu'
+    action: 'getMenus'
   },
   'get /restaurant': {
     controller: 'LocationsController',
@@ -64,6 +64,14 @@ module.exports.routes = {
   'post /order': {
     controller: 'OrdersController',
     action: 'insertOrder'
+  },
+  'get /order/:orderNumber': {
+    controller: 'OrdersController',
+    action: 'lookupOrder'
+  },
+  'patch /order/:orderNumber/:status': {
+    controller: 'OrdersController',
+    action: 'updateOrderStatus'
   }
 
 };

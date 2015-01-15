@@ -20,12 +20,12 @@
       if (err) return err;
 
       // using the lat and lng, uses Mongo's spatial $near features
-      // the order should be longitude, latitude first, but since the data is in the reverse order,
+      // the order should be [longitude, latitude] format, but since the data is in the reverse order,
       // we just apply it this way to avoid mongoDB confusion
 
-      // We uses $near to compare with $geoWithin because $near return a sorted results,
-      // though have some impact on performance, since we only needed the one and only closest
-      // to the given coordinate, *might* not be a problem
+      // We uses $near rather than $geoWithin because $near return a sorted results,
+      // though it'd have some impact on performance, since we only needed the one and only closest
+      // data, it *might* not be a problem
       collection.find({
         'geometry.location': {
           $near: [ lat, lng ],

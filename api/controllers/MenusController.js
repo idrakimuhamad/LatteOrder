@@ -22,69 +22,73 @@ module.exports = {
   },
   // run on first time, to add default data
   addDataFirstTime: function (req, res) {
-    var menus = Menus.find();
-    var locations = Locations.find();
 
-    if (!menus.length && !locations.length) {
-      // declare the directory o f the data files
-      var dir = "./assets/js";
+    // check if there are any data for menu, if not insert initial data
+    // for both Menus and Locations
+    // We assume here that, if there are no data in Menus, there will be
+    // no data in Locations too.
+    Menus.find({ limit: 1 }).exec(function (err, menu) {
+      if (!menu.length) {
+        // declare the directory o f the data files
+        var dir = "./assets/js";
 
-      // read the menu file
-      var menuStream = fs.createReadStream(dir + '/menu.json', {
-        encoding: 'utf8',
-        autoClose: true
-      });
+        // read the menu file
+        var menuStream = fs.createReadStream(dir + '/menu.json', {
+          encoding: 'utf8',
+          autoClose: true
+        });
 
-      // read the location file
-      var locationStream = fs.createReadStream(dir + '/locations.json', {
-        encoding: 'utf8',
-        autoClose: true
-      });
+        // read the location file
+        var locationStream = fs.createReadStream(dir + '/locations.json', {
+          encoding: 'utf8',
+          autoClose: true
+        });
 
-      // parse the data and write into DB
-      menuStream.on('readable', function () {
-        var chunks = menuStream.read();
-        chunks = JSON.parse(chunks);
+        // parse the data and write into DB
+        menuStream.on('readable', function () {
+          var chunks = menuStream.read();
+          chunks = JSON.parse(chunks);
 
-        // base on its name, identify the item subcategory
-        for (var i = 0; i < chunks.length; i ++) {
-          if (chunks[i].name.indexOf('Iced') > -1) {
-            chunks[i].subcategory = 'cold';
-          } else {
-            chunks[i].subcategory = 'hot';
-          }
-          // insert the menu in collection
-          Menus.create(chunks[i]).exec(function insertMenu(err, menu) {
-            if (err) {
-              console.log("There are some problem in inserting the menu. " + err);
-              res.end("Some error occurred. See logs.");
+          // base on its name, identify the item subcategory
+          for (var i = 0; i < chunks.length; i ++) {
+            if (chunks[i].name.indexOf('Iced') > -1) {
+              chunks[i].subcategory = 'cold';
             } else {
-              console.log('Created a menu for ' + menu.name + ' with a subcategory of ' + menu.subcategory);
+              chunks[i].subcategory = 'hot';
             }
-          })
-        };
-      });
+            // insert the menu in collection
+            Menus.create(chunks[i]).exec(function insertMenu(err, menu) {
+              if (err) {
+                console.log("There are some problem in inserting the menu. " + err);
+                res.end("Some error occurred. See logs.");
+              } else {
+                console.log('Created a menu for ' + menu.name + ' with a subcategory of ' + menu.subcategory);
+              }
+            })
+          };
+        });
 
-      // parse the data and write into DB
-      locationStream.on('readable', function () {
-        var chunks = locationStream.read();
-        chunks = JSON.parse(chunks);
+        // parse the data and write into DB
+        locationStream.on('readable', function () {
+          var chunks = locationStream.read();
+          chunks = JSON.parse(chunks);
 
-        for (var i = 0; i < chunks.length; i ++) {
-          Locations.create(chunks[i]).exec(function insertCafe(err, cafe) {
-            if (err) {
-              console.log("There are some problem in inserting the cafe. " + err);
-              res.end("Some error occurred. See logs.");
-            } else {
-              console.log('Inserted a cafe for ' + cafe.name);
-            }
-          })
-        };
-      });
-      res.end('Successfully inserted the initial data');
-    } else {
-      res.end('Data has already been inserted');
-    }
+          for (var i = 0; i < chunks.length; i ++) {
+            Locations.create(chunks[i]).exec(function insertCafe(err, cafe) {
+              if (err) {
+                console.log("There are some problem in inserting the cafe. " + err);
+                res.end("Some error occurred. See logs.");
+              } else {
+                console.log('Inserted a cafe for ' + cafe.name);
+              }
+            })
+          };
+        });
+        res.end('Successfully inserted the initial data');
+      } else {
+        res.end('Data has already been inserted');
+      }
+    });
   },
   clearAllMenus: function (req, res) {
     Menus.destroy({}).exec(function clearAllMenus(err) {

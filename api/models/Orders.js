@@ -15,8 +15,9 @@ module.exports = {
     email: {
       type: 'email'
     },
+    // so that we can save the 0 in front, or +6 or whatever it is
     phone: {
-      type: 'integer'
+      type: 'string'
     },
     // to normalize or denormalize?
     // since the API only allow the process of updating the status of the order,

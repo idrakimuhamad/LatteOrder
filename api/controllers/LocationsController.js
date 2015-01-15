@@ -6,33 +6,20 @@
  */
 
 module.exports = {
-  getClosestRestaurant: function (req, res) {
-    var lat = parseFloat(req.param('lat'));
-    var lng = parseFloat(req.param('lng'));
-    // if radius was passed, use it. else defaulted to 5
-    var radii = req.param('radii') ? parseFloat(req.param('radii')) : 5;
+  getRestaurants: function (req, res, next) {
+    var options = {
+      lat: parseFloat(req.param('lat')),
+      lng: parseFloat(req.param('lng')),
+      radii : req.param('radii') ? parseFloat(req.param('radii')) : 5
+    };
 
-    // IMPORTANT!
-    // Make sure to index the geometry field through the mongo console.
-    // Not necessary but should improve performance dramatically
-
-    // using the lat and lng, uses Mongo's Geospatial features
-    Locations.native(function(err,collection) {
+    LocationsService.getClosestRestaurant(options, function (err, results) {
       if (err) return res.serverError(err);
 
-      var loc = collection.find({
-        'geometry.location': {
-          $geoWithin: {
-            $center: [ [ lat, lng ] , radii ]
-          }
-        }
-      }).toArray(function (err, results) {
-        if (err) return res.serverError(err);
-        return res.json({
-          restaurant: results
-        });
-      });
-
+      return res.json({
+        statusCode: 200,
+        data: results
+      })
     });
   },
   clearAllLocations: function (req, res) {

@@ -6,10 +6,16 @@
  */
 
  module.exports = {
-  getAMenu: function (id, callback) {
-    Menus.find({ id: id }).exec(function (err, menu) {
-      if (err) callback(err);
-      else callback(null, menu);
-    });
+  getMenuById: function (ids, callback) {
+    if (typeof ids == 'object') {
+      var products = [];
+
+      Menus.find()
+            .where({ id : ids })
+            .exec(function (err, menus) {
+              if (err) callback(err);
+              else callback (null, menus);
+            })
+    }
   }
  };

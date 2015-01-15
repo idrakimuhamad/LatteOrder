@@ -59,7 +59,11 @@ module.exports.routes = {
   },
   'get /restaurant': {
     controller: 'LocationsController',
-    action: 'getClosestRestaurant'
+    action: 'getRestaurants'
+  },
+  'post /order': {
+    controller: 'OrdersController',
+    action: 'insertOrder'
   }
 
 };

@@ -42,6 +42,7 @@ module.exports = {
                   closestRestaurant: address,
                   products: menus,
                   status: 'confirm',
+                  user: req.param('user')
                 };
 
                 menus.forEach(function (menu) {
@@ -49,12 +50,6 @@ module.exports = {
                 });
 
                 orders.total = totalPrice.toFixed(2);
-
-                if (req.param('email')) {
-                  orders.email = req.param('email');
-                } else if (req.param('phone')) {
-                  orders.phone = req.param('phone');
-                }
 
                 Orders.create(orders).exec(function insertOrder(err, order) {
                   if (err) return res.serverError(err + ': Some problem while creating the order');
@@ -72,10 +67,18 @@ module.exports = {
   lookupOrder: function (req, res) {
     if (req.is('application/json')) {
       // get the order number
-      var orderNumber = req.param('orderNumber');
+      var query = req.param('query');
+
+      if (!query) res.badRequest('Missing either order number or customer\'s email or phone number');
+
+      if (query.indexOf('SB') > -1) {
+        query = { orderNumber: query };
+      } else {
+        query = { user: query };
+      }
 
       // look up for the order
-      OrdersService.getOrderByOrderNumber(orderNumber, function (err, order) {
+      OrdersService.getOrder(query, function (err, order) {
         if (err) return res.serverError(err);
         res.ok(order)
       })

@@ -1,0 +1,7 @@
+/* app layout */
+.front-page header {
+  background-image: url('../images/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 10rem 2rem;
+}

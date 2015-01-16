@@ -41,15 +41,15 @@ module.exports.routes = {
   * Custom routes here...                                                    *
   *                                                                          *
   ***************************************************************************/
-  'post /firsttime': {
+  'get /firsttime': {
     controller: 'MenusController',
     action: 'addDataFirstTime'
   },
-  'post /clearAllMenus': {
+  'get /clearAllMenus': {
     controller: 'MenusController',
     action: 'clearAllMenus'
   },
-  'post /clearAllLocations': {
+  'get /clearAllLocations': {
     controller: 'LocationsController',
     action: 'clearAllLocations'
   },
@@ -65,7 +65,7 @@ module.exports.routes = {
     controller: 'OrdersController',
     action: 'insertOrder'
   },
-  'get /order/:orderNumber': {
+  'get /order/:query': {
     controller: 'OrdersController',
     action: 'lookupOrder'
   },

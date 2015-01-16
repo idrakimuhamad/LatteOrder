@@ -12,11 +12,10 @@ module.exports = {
       type: 'string',
       required: true
     },
-    email: {
-      type: 'email'
-    },
-    // so that we can save the 0 in front, or +6 or whatever it is
-    phone: {
+    // so that we can save phone with 0 in front, or +6 or whatever it is
+    // or it can be email
+    // easier for us to look it up without the need to specify the type of data given
+    user: {
       type: 'string'
     },
     // to normalize or denormalize?

@@ -24,13 +24,13 @@
       }
     });
   },
-  // lookup order by order number
-  getOrderByOrderNumber: function (order, callback) {
-    Orders.findOne({ orderNumber: order })
+  // lookup order by query
+  getOrder: function (query, callback) {
+    Orders.find(query)
             .exec(function (err, order) {
               if (err) callback(err);
               else callback(null, order);
-            })
+            });
   },
   // update order by any properties and value
   updateOrder: function (order, toUpdate, callback) {

@@ -42,7 +42,7 @@
     </section>
     <section class="container px2 py3">
       <h1 class="mt0">
-        .Testing
+        <a href="/#apis">.APIs</a>
       </h1>
       <div class="clearfix mxn2">
         <div class="sm-col sm-col-8 md-col-9 px2">
@@ -50,11 +50,11 @@
             <h2 class="h3">
               Query for closest restaurant
             </h2>
-            <p>This request will return a JSON object containing the closest restaurant from the given coordinate.</p>
+            <p>This request will return a JSON object containing the closest restaurant from the given coordinate or an error object if it failed.</p>
             <p><b>Operation</b></p>
             <p><code>GET /restaurant</code></p>
             <p><b>Request</b></p>
-            <table class="table-light">
+            <table class="table-light mb2">
               <thead>
                 <tr>
                   <th>Property</th><th>Type</th><th>Description</th>
@@ -67,7 +67,7 @@
               </tbody>
             </table>
             <p><b>Response</b></p>
-            <table class="table-light">
+            <table class="table-light mb2">
               <thead>
                 <tr>
                   <th>Property</th><th>Type</th><th>Description</th>
@@ -83,10 +83,10 @@
                 <tr>
                   <td>geometry</td><td>object</td>
                   <td>The geometry object which contained the restaurant coordinate. It includes the <code>location</code> object like below:
-                    <pre><code>"location" : {
-                      "lat": // the latitude,
-                      "lng": // the longitude
-                      }
+                    <pre>"location" : {
+  "lat": // the latitude,
+  "lng": // the longitude
+}</pre>
                   </td>
                 </tr>
                 <tr>
@@ -113,31 +113,490 @@
               </tbody>
             </table>
             <p><b>Request Example (cURL)</b></p>
-            <pre class="px2 py2">curl -v -G http://localhost:1337/restaurant -d "lat=3.0&lng=101.0&radii=7"</pre>
+            <pre class="px2 py2">curl -v "http://localhost:1337/restaurant?lat=3.0&lng=101.0&radii=7"</pre>
             <p><b>Response Sample</b></p>
             <pre class="px2 py2">[
-                {
-                  "_id": "4aba7b2ac77ff8a9b41db997dd2fb05967c3bb88",
-                  "formatted_address": "Jalan Anggerik Vanilla 31/93, Kota Kemuning, 40460 Shah Alam, Selangor, Malaysia",
-                  "geometry": {
-                      "location": {
-                          "lat": 3.003213,
-                          "lng": 101.541283
-                      }
-                  },
-                  "icon": "http://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
-                  "name": "Starbucks",
-                  "place_id": "ChIJwYeMiI6yzTERpsrVi9QN_mI",
-                  "reference": "CnRrAAAAjz3d1NtcdiSMHtW0idpw0jIf4AEWtiZrutv6AiJC0YeKpt1VjDuScp1TsK0fXWWusFCSeOSx0JiStXWXZ3ILG25SzaBTTPE5xHRwbtoB9qFoedlMNFxEPpB_x7i4E3VP41dclK2J5piJqb7-Up0YxBIQfcaItO0B_g8U_rY0Aj1EURoUuiHOB6MYj1obqshFXLnJkOBkadY",
-                  "types": [
-                      "restaurant",
-                      "food",
-                      "establishment"
-                  ],
-                  "createdAt": "2015-01-15T04:37:50.213Z",
-                  "updatedAt": "2015-01-15T04:37:50.213Z"
-                }
-              ]</pre>
+  { "_id": "4aba7b2ac77ff8a9b41db997dd2fb05967c3bb88",
+    "formatted_address": "Jalan Anggerik Vanilla 31/93, Kota Kemuning, 40460 Shah Alam, Selangor, Malaysia",
+    "geometry": {
+      "location": {
+        "lat": 3.003213,
+        "lng": 101.541283
+      }
+    },
+    "icon": "http://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
+    "name": "Starbucks",
+    "place_id": "ChIJwYeMiI6yzTERpsrVi9QN_mI",
+    "reference": "CnRrAAAAjz3d1NtcdiSMHtW0idpw0jIf4AEWtiZrutv6AiJC0YeKpt1VjDuScp1TsK0fXWWusFCSeOSx0JiStXWXZ3ILG25SzaBTTPE5xHRwbtoB9qFoedlMNFxEPpB_x7i4E3VP41dclK2J5piJqb7-Up0YxBIQfcaItO0B_g8U_rY0Aj1EURoUuiHOB6MYj1obqshFXLnJkOBkadY",
+    "types": [
+      "restaurant",
+      "food",
+      "establishment"
+    ],
+    "createdAt": "2015-01-15T04:37:50.213Z",
+    "updatedAt": "2015-01-15T04:37:50.213Z"
+  }
+]</pre>
+          </div>
+        </div>
+        <!-- End of closest query -->
+        <!-- start of menus query -->
+        <div class="sm-col sm-col-8 md-col-9 px2">
+          <div>
+            <h2 class="h3">
+              Query for menus
+            </h2>
+            <p>This request will return a JSON object containing the menus of the restaurant or an error object if it failed, and can be filter out base on some of its property . To get all of the menus entry, query the path without parameter</p>
+            <p><b>Operation</b></p>
+            <p><code>GET /menus</code></p>
+            <p><b>Request</b></p>
+            <table class="table-light mb2">
+              <thead>
+                <tr>
+                  <th>Property</th><th>Type</th><th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr> <td>category</td><td><em>string</em></td><td>The category name. For now, the category were all save into the menu, so the full name of the category must be included. Could be best improve by storing the category into separate collection and we only need the ID. Category which contained spaces in between, must be replace with <code>+</code>. eg: "Frappuccino®+Blended+Coffee"</td> </tr>
+                <tr> <td>subcategory</td> <td><em>string</em></td> <td>The subcategory of the product. Value can be either "hot" or "cold".</td> </tr>
+                <tr> <td>price</td><td>string</td> <td>The price of the product. Can be either "12" or "12.00".</td> </tr>
+              </tbody>
+            </table>
+            <p><b>Response</b></p>
+            <table class="table-light mb2">
+              <thead>
+                <tr>
+                  <th>Property</th><th>Type</th><th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td><td><em>string</em></td><td>The MongoDB ID for this entry.</td>
+                </tr>
+                <tr>
+                  <td>name</td> <td><em>string</em></td> <td>The name of the menu.</td>
+                </tr>
+                <tr>
+                  <td>category</td> <td><em>string</em></td> <td>The category name of this product</td>
+                </tr>
+                <tr>
+                  <td>subcategory</td> <td><em>string</em></td> <td>The subcategory of the product.</td>
+                </tr>
+                <tr>
+                  <td>createdAt</td> <td><em>date_time</em></td> <td>The date and time as defined in <a href="http://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339 Section 5.6</a> when this item was created.</td>
+                </tr>
+                <tr>
+                  <td>updatedAt</td> <td><em>date_time</em></td> <td>The date and time as defined in <a href="http://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339 Section 5.6</a> when this item was modified.</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><b>Request Example (cURL)</b></p>
+            <pre class="px2 py2">curl -v "http://localhost:1337/menus?subcategory=hot&category=Frappuccino®+Blended+Coffee"</pre>
+            <p><b>Response Sample</b></p>
+            <pre class="px2 py2">[
+ {
+    "name": "Mocha Blended Coffee Frappuccino®",
+    "price": 12,
+    "category": "Frappuccino® Blended Coffee",
+    "subcategory": "hot",
+    "createdAt": "2015-01-14T11:11:46.095Z",
+    "updatedAt": "2015-01-14T11:11:46.095Z",
+    "id": "54b64ef23b0daeb790099264"
+  }
+]</pre>
+          </div>
+        </div>
+        <!-- end of menus -->
+        <!-- start of Order -->
+        <div class="sm-col sm-col-8 md-col-9 px2">
+          <div>
+            <h2 class="h3">
+              Make Order
+            </h2>
+            <p>This request will return a JSON object containing the order information or an error object if it failed. The property of the request must be in a valid JSON format.</p>
+            <p><b>Operation</b></p>
+            <p><code>POST /order</code></p>
+            <p><b>Request</b></p>
+            <table class="table-light mb2">
+              <thead>
+                <tr>
+                  <th>Property</th><th>Type</th><th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr> <td>lat</td><td><em>string</em></td><td>The latitude of the user making the order</td> </tr>
+                <tr> <td>lng</td> <td><em>string</em></td> <td>The longitude of the user making the order.</td> </tr>
+                <tr> <td>radii</td><td>string</td> <td>The maximum distance radius between the given location and the closest restaurant.</td></tr>
+                <tr> <td>productId</td><td>array</td> <td>An array of string containing the ID of the product(s) that to be order.</td></tr>
+                <tr> <td>user</td><td>string</td> <td>The email or phone number of the user.</td></tr>
+              </tbody>
+            </table>
+            <p><b>Response</b></p>
+            <table class="table-light mb2">
+              <thead>
+                <tr>
+                  <th>Property</th><th>Type</th><th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td><td><em>string</em></td><td>The MongoDB ID for this entry.</td>
+                </tr>
+                <tr>
+                  <td>orderNumber</td> <td><em>string</em></td> <td>The order number of this order.</td>
+                </tr>
+                <tr>
+                  <td>closestRestaurant</td> <td><em>string</em></td> <td>The address of the closest restaurant of the customer.</td>
+                </tr>
+                <tr>
+                  <td>products</td> <td><em>array</em></td> <td>The array containing the product information of the order.</td>
+                </tr>
+                <tr>
+                  <td>status</td> <td><em>string</em></td> <td>The status of the order. Possible value : "confirm", "paid", "brewing", "ready to pickup"</td>
+                </tr>
+                <tr>
+                  <td>user</td> <td><em>string</em></td> <td>The information about the user, either their email or phone number.</td>
+                </tr>
+                <tr>
+                  <td>total</td> <td><em>number</em></td> <td>The total price of the order.</td>
+                </tr>
+                <tr>
+                  <td>createdAt</td> <td><em>date_time</em></td> <td>The date and time as defined in <a href="http://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339 Section 5.6</a> when this item was created.</td>
+                </tr>
+                <tr>
+                  <td>updatedAt</td> <td><em>date_time</em></td> <td>The date and time as defined in <a href="http://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339 Section 5.6</a> when this item was modified.</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><b>Request Example (cURL)</b></p>
+            <pre class="px2 py2">curl -v POST http://localhost:1337/order -H 'Content-Type:application/json' -d '{"lat":"3.01","lng":"101.01","productId": ["54b64ef23b0daeb790099266", "54b64ef23b0daeb790099266", "54b64ef23b0daeb790099270" ],"user": "pronto@jojo.com"}'</pre>
+            <p><b>Response Sample</b></p>
+            <pre class="px2 py2">{
+  "orderNumber": "SB1004",
+  "closestRestaurant": "Starbucks, Jalan Anggerik Vanilla 31/93, Kota Kemuning, 40460 Shah Alam, Selangor, Malaysia",
+  "products": [
+  {
+    "name": "Mocha Blended Coffee Frappuccino®",
+    "price": 12,
+    "category": "Frappuccino® Blended Crème’",
+    "subcategory": "hot",
+    "createdAt": "2015-01-14T11:11:46.096Z",
+    "updatedAt": "2015-01-14T11:11:46.096Z",
+    "id": "54b64ef23b0daeb790099266"
+  },
+  {
+    "name": "Mango Passion Fruit Frappuccino® Blended Juice Drink",
+    "price": 12,
+    "category": "Frappuccino® Blended Juice Drinks",
+    "subcategory": "hot",
+    "createdAt": "2015-01-14T11:11:46.131Z",
+    "updatedAt": "2015-01-14T11:11:46.131Z",
+    "id": "54b64ef23b0daeb790099270"
+  }],
+  "status": "confirm",
+  "user": "pronto@jojo.com",
+  "total": 24,
+  "createdAt": "2015-01-17T10:30:28.083Z",
+  "updatedAt": "2015-01-17T10:30:28.083Z",
+  "id": "54ba39c46ed17d66ba6ec5c0"
+}</pre>
+          </div>
+        </div>
+        <!-- end of Order -->
+        <!-- start of update -->
+        <div class="sm-col sm-col-8 md-col-9 px2">
+          <div>
+            <h2 class="h3">
+              Update Order Status
+            </h2>
+            <p>This request will return a JSON object containing the order information with the new status or an error object if it failed.</p>
+            <p><b>Operation</b></p>
+            <p><code>PATCH /order/:orderNumber/:newstatus</code></p>
+            <p><b>Response</b></p>
+            <table class="table-light mb2">
+              <thead>
+                <tr>
+                  <th>Property</th><th>Type</th><th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td><td><em>string</em></td><td>The MongoDB ID for this entry.</td>
+                </tr>
+                <tr>
+                  <td>orderNumber</td> <td><em>string</em></td> <td>The order number of this order.</td>
+                </tr>
+                <tr>
+                  <td>closestRestaurant</td> <td><em>string</em></td> <td>The address of the closest restaurant of the customer.</td>
+                </tr>
+                <tr>
+                  <td>products</td> <td><em>array</em></td> <td>The array containing the product information of the order.</td>
+                </tr>
+                <tr>
+                  <td>status</td> <td><em>string</em></td> <td>The current status of the order. Possible value : "confirm", "paid", "brewing", "ready to pickup"</td>
+                </tr>
+                <tr>
+                  <td>user</td> <td><em>string</em></td> <td>The information about the user, either their email or phone number.</td>
+                </tr>
+                <tr>
+                  <td>total</td> <td><em>number</em></td> <td>The total price of the order.</td>
+                </tr>
+                <tr>
+                  <td>createdAt</td> <td><em>date_time</em></td> <td>The date and time as defined in <a href="http://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339 Section 5.6</a> when this item was created.</td>
+                </tr>
+                <tr>
+                  <td>updatedAt</td> <td><em>date_time</em></td> <td>The date and time as defined in <a href="http://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339 Section 5.6</a> when this item was modified.</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><b>Request Example (cURL)</b></p>
+            <pre class="px2 py2">curl -v -X PATCH http://localhost:1337/order/SB1004/paid</pre>
+            <p><b>Response Sample</b></p>
+            <pre class="px2 py2">[
+  {
+    "orderNumber": "SB1004",
+    "closestRestaurant": "Starbucks, Jalan Anggerik Vanilla 31/93, Kota Kemuning, 40460 Shah Alam, Selangor, Malaysia",
+    "products": [
+      {
+        "name": "Mocha Blended Coffee Frappuccino®",
+        "price": 12,
+        "category": "Frappuccino® Blended Crème’",
+        "subcategory": "hot",
+        "createdAt": "2015-01-14T11:11:46.096Z",
+        "updatedAt": "2015-01-14T11:11:46.096Z",
+        "id": "54b64ef23b0daeb790099266"
+      },
+      {
+        "name": "Mango Passion Fruit Frappuccino® Blended Juice Drink",
+        "price": 12,
+        "category": "Frappuccino® Blended Juice Drinks",
+        "subcategory": "hot",
+        "createdAt": "2015-01-14T11:11:46.131Z",
+        "updatedAt": "2015-01-14T11:11:46.131Z",
+        "id": "54b64ef23b0daeb790099270"
+      }
+    ],
+    "status": "paid",
+    "user": "pronto@jojo.com",
+    "total": 24,
+    "createdAt": "2015-01-17T10:30:28.083Z",
+    "updatedAt": "2015-01-17T11:57:35.859Z",
+    "id": "54ba39c46ed17d66ba6ec5c0"
+  }
+]</pre>
+          </div>
+        </div>
+        <!-- end of update -->
+        <!-- start of order information -->
+        <div class="sm-col sm-col-8 md-col-9 px2">
+          <div>
+            <h2 class="h3">
+              Look up for An Order
+            </h2>
+            <p>This request will return a JSON objects of an order or an error object if it failed. <code>orderNumber</code> parameter will be the order number.</p>
+            <p><b>Operation</b></p>
+            <p><code>GET /order/:orderNumber</code></p>
+            <p><b>Response</b></p>
+            <table class="table-light mb2">
+              <thead>
+                <tr>
+                  <th>Property</th><th>Type</th><th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td><td><em>string</em></td><td>The MongoDB ID for this entry.</td>
+                </tr>
+                <tr>
+                  <td>orderNumber</td> <td><em>string</em></td> <td>The order number of this order.</td>
+                </tr>
+                <tr>
+                  <td>closestRestaurant</td> <td><em>string</em></td> <td>The address of the closest restaurant of the customer.</td>
+                </tr>
+                <tr>
+                  <td>products</td> <td><em>array</em></td> <td>The array containing the product information of the order.</td>
+                </tr>
+                <tr>
+                  <td>status</td> <td><em>string</em></td> <td>The status of the order. Possible value : "confirm", "paid", "brewing", "ready to pickup"</td>
+                </tr>
+                <tr>
+                  <td>user</td> <td><em>string</em></td> <td>The information about the user, either their email or phone number.</td>
+                </tr>
+                <tr>
+                  <td>total</td> <td><em>number</em></td> <td>The total price of the order.</td>
+                </tr>
+                <tr>
+                  <td>createdAt</td> <td><em>date_time</em></td> <td>The date and time as defined in <a href="http://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339 Section 5.6</a> when this item was created.</td>
+                </tr>
+                <tr>
+                  <td>updatedAt</td> <td><em>date_time</em></td> <td>The date and time as defined in <a href="http://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339 Section 5.6</a> when this item was modified.</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><b>Request Example (cURL)</b></p>
+            <pre class="px2 py2">curl -v http://localhost:1337/order/SB1004</pre>
+            <p><b>Response Sample</b></p>
+            <pre class="px2 py2">[
+  {
+    "orderNumber": "SB1004",
+    "closestRestaurant": "Starbucks, Jalan Anggerik Vanilla 31/93, Kota Kemuning, 40460 Shah Alam, Selangor, Malaysia",
+    "products": [
+      {
+        "name": "Mocha Blended Coffee Frappuccino®",
+        "price": 12,
+        "category": "Frappuccino® Blended Crème’",
+        "subcategory": "hot",
+        "createdAt": "2015-01-14T11:11:46.096Z",
+        "updatedAt": "2015-01-14T11:11:46.096Z",
+        "id": "54b64ef23b0daeb790099266"
+      },
+      {
+        "name": "Mango Passion Fruit Frappuccino® Blended Juice Drink",
+        "price": 12,
+        "category": "Frappuccino® Blended Juice Drinks",
+        "subcategory": "hot",
+        "createdAt": "2015-01-14T11:11:46.131Z",
+        "updatedAt": "2015-01-14T11:11:46.131Z",
+        "id": "54b64ef23b0daeb790099270"
+      }
+    ],
+    "status": "paid",
+    "user": "pronto@jojo.com",
+    "total": 24,
+    "createdAt": "2015-01-17T10:30:28.083Z",
+    "updatedAt": "2015-01-17T11:57:35.859Z",
+    "id": "54ba39c46ed17d66ba6ec5c0"
+  }
+]</pre>
+          </div>
+        </div>
+        <!-- end of order information -->
+        <!-- start of order history -->
+        <div class="sm-col sm-col-8 md-col-9 px2">
+          <div>
+            <h2 class="h3">
+              Look up for Customer's Order History
+            </h2>
+            <p>This request will return an array containing JSON objects of the order's history for the given user or an error object if it failed. <code>user</code> parameter could be the email address or the phone number used by the customer when making order.</p>
+            <p><b>Operation</b></p>
+            <p><code>GET /order/:user</code></p>
+            <p><b>Response</b></p>
+            <table class="table-light mb2">
+              <thead>
+                <tr>
+                  <th>Property</th><th>Type</th><th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td><td><em>string</em></td><td>The MongoDB ID for this entry.</td>
+                </tr>
+                <tr>
+                  <td>orderNumber</td> <td><em>string</em></td> <td>The order number of this order.</td>
+                </tr>
+                <tr>
+                  <td>closestRestaurant</td> <td><em>string</em></td> <td>The address of the closest restaurant of the customer.</td>
+                </tr>
+                <tr>
+                  <td>products</td> <td><em>array</em></td> <td>The array containing the product information of the order.</td>
+                </tr>
+                <tr>
+                  <td>status</td> <td><em>string</em></td> <td>The status of the order. Possible value : "confirm", "paid", "brewing", "ready to pickup"</td>
+                </tr>
+                <tr>
+                  <td>user</td> <td><em>string</em></td> <td>The information about the user, either their email or phone number.</td>
+                </tr>
+                <tr>
+                  <td>total</td> <td><em>number</em></td> <td>The total price of the order.</td>
+                </tr>
+                <tr>
+                  <td>createdAt</td> <td><em>date_time</em></td> <td>The date and time as defined in <a href="http://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339 Section 5.6</a> when this item was created.</td>
+                </tr>
+                <tr>
+                  <td>updatedAt</td> <td><em>date_time</em></td> <td>The date and time as defined in <a href="http://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339 Section 5.6</a> when this item was modified.</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><b>Request Example (cURL)</b></p>
+            <pre class="px2 py2">curl -v http://localhost:1337/order/pront@jojo.com</pre>
+            <p><b>Response Sample</b></p>
+            <pre class="px2 py2">[
+  {
+    "orderNumber": "SB1004",
+    "closestRestaurant": "Starbucks, Jalan Anggerik Vanilla 31/93, Kota Kemuning, 40460 Shah Alam, Selangor, Malaysia",
+    "products": [
+      {
+        "name": "Mocha Blended Coffee Frappuccino®",
+        "price": 12,
+        "category": "Frappuccino® Blended Crème’",
+        "subcategory": "hot",
+        "createdAt": "2015-01-14T11:11:46.096Z",
+        "updatedAt": "2015-01-14T11:11:46.096Z",
+        "id": "54b64ef23b0daeb790099266"
+      },
+      {
+        "name": "Mango Passion Fruit Frappuccino® Blended Juice Drink",
+        "price": 12,
+        "category": "Frappuccino® Blended Juice Drinks",
+        "subcategory": "hot",
+        "createdAt": "2015-01-14T11:11:46.131Z",
+        "updatedAt": "2015-01-14T11:11:46.131Z",
+        "id": "54b64ef23b0daeb790099270"
+      }
+    ],
+    "status": "paid",
+    "user": "pronto@jojo.com",
+    "total": 24,
+    "createdAt": "2015-01-17T10:30:28.083Z",
+    "updatedAt": "2015-01-17T11:57:35.859Z",
+    "id": "54ba39c46ed17d66ba6ec5c0"
+  },
+  {
+    "orderNumber": "SB1005",
+    "closestRestaurant": "Starbucks, Jalan Anggerik Vanilla 31/93, Kota Kemuning, 40460 Shah Alam, Selangor, Malaysia",
+    "products": [
+      {
+        "name": "Mocha Blended Coffee Frappuccino®",
+        "price": 12,
+        "category": "Frappuccino® Blended Crème’",
+        "subcategory": "hot",
+        "createdAt": "2015-01-14T11:11:46.096Z",
+        "updatedAt": "2015-01-14T11:11:46.096Z",
+        "id": "54b64ef23b0daeb790099266"
+      },
+      {
+        "name": "Mango Passion Fruit Frappuccino® Blended Juice Drink",
+        "price": 12,
+        "category": "Frappuccino® Blended Juice Drinks",
+        "subcategory": "hot",
+        "createdAt": "2015-01-14T11:11:46.131Z",
+        "updatedAt": "2015-01-14T11:11:46.131Z",
+        "id": "54b64ef23b0daeb790099270"
+      }
+    ],
+    "status": "confirm",
+    "user": "pronto@jojo.com",
+    "total": 24,
+    "createdAt": "2015-01-17T10:36:48.970Z",
+    "updatedAt": "2015-01-17T10:36:48.970Z",
+    "id": "54ba3b406ed17d66ba6ec5c1"
+  }
+]</pre>
+          </div>
+        </div>
+        <!-- end of order history -->
+      </div>
+    </section>
+    <section class="container px2 py3">
+      <h1 class="mt0">
+        <a href="/#apis">.Testing</a>
+      </h1>
+      <div class="clearfix mxn2">
+        <div class="sm-col sm-col-8 md-col-9 px2">
+          <div>
+            <h2 class="h3">
+              Not yet implemented
+            </h2>
           </div>
         </div>
       </div>

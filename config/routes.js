@@ -41,6 +41,9 @@ module.exports.routes = {
   * Custom routes here...                                                    *
   *                                                                          *
   ***************************************************************************/
+  '/demo': {
+    view: 'demo'
+  },
   'get /firsttime': {
     controller: 'MenusController',
     action: 'addDataFirstTime'

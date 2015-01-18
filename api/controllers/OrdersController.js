@@ -53,7 +53,10 @@ module.exports = {
 
                 Orders.create(orders).exec(function insertOrder(err, order) {
                   if (err) return res.serverError(err + ': Some problem while creating the order');
-                  res.ok(order);
+                  res.json({
+                    statusCode: 200,
+                    data: order
+                  })
                 });
               });
             });
@@ -79,7 +82,10 @@ module.exports = {
     // look up for the order
     OrdersService.getOrder(query, function (err, order) {
       if (err) return res.serverError(err);
-      res.ok(order)
+      res.json({
+        statusCode: 200,
+        data: order
+      });
     });
   },
   updateOrderStatus: function (req, res) {
@@ -89,7 +95,10 @@ module.exports = {
     // Update the status
     OrdersService.updateOrder(orderNumber, statusObj, function (err, order) {
       if (err) return res.serverError(err);
-      res.ok(order)
+      res.json({
+        statusCode: 200,
+        data: order
+      });
     });
   }
 };

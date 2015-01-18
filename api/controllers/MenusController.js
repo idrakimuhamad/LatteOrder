@@ -18,7 +18,10 @@ module.exports = {
           .exec(function (err, menu) {
             if (err) return res.serverError(err);
             
-            res.ok(menu);
+            res.json({
+              statusCode: 200,
+              data: menu
+            })
           });
   },
   // run on first time, to add default data

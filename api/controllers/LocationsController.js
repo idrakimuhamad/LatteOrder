@@ -16,7 +16,10 @@ module.exports = {
 
     LocationsService.getClosestRestaurant(options, function (err, results) {
       if (err) return res.serverError(err);
-      res.ok(results);
+      res.json({
+        statusCode: 200,
+        data: results
+      });
     });
   },
   clearAllLocations: function (req, res) {

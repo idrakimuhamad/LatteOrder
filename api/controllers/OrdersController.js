@@ -65,36 +65,32 @@ module.exports = {
     }
   },
   lookupOrder: function (req, res) {
-    if (req.is('application/json')) {
-      // get the order number
-      var query = req.param('query');
+    // get the order number
+    var query = req.param('query');
 
-      if (!query) res.badRequest('Missing either order number or customer\'s email or phone number');
+    if (!query) res.badRequest('Missing either order number or customer\'s email or phone number');
 
-      if (query.indexOf('SB') > -1) {
-        query = { orderNumber: query };
-      } else {
-        query = { user: query };
-      }
-
-      // look up for the order
-      OrdersService.getOrder(query, function (err, order) {
-        if (err) return res.serverError(err);
-        res.ok(order)
-      })
+    if (query.indexOf('SB') > -1) {
+      query = { orderNumber: query };
+    } else {
+      query = { user: query };
     }
+
+    // look up for the order
+    OrdersService.getOrder(query, function (err, order) {
+      if (err) return res.serverError(err);
+      res.ok(order)
+    });
   },
   updateOrderStatus: function (req, res) {
-    if (req.is('application/json')) {
-      var orderNumber = req.param('orderNumber'), // get the order number
+    var orderNumber = req.param('orderNumber'), // get the order number
           statusObj = { status: req.param('status') }; // get the status
 
-      // Update the status
-      OrdersService.updateOrder(orderNumber, statusObj, function (err, order) {
-        if (err) return res.serverError(err);
-        res.ok(order)
-      })
-    }
+    // Update the status
+    OrdersService.updateOrder(orderNumber, statusObj, function (err, order) {
+      if (err) return res.serverError(err);
+      res.ok(order)
+    });
   }
 };
 

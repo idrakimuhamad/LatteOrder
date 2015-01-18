@@ -10,20 +10,16 @@ var fs = require('fs');
 
 module.exports = {
   getMenus: function (req, res) {
-    if (req.is('application/json')) {
-      // get the params in the request
-      var query = req.params.all();
+    // get the params in the request
+    var query = req.params.all();
 
-      // search with exact params
-      Menus.find(query)
-            .exec(function (err, menu) {
-              if (err) return res.serverError(err);
-              
-              res.ok(menu);
-            });
-    } else {
-      res.badRequest('Missing Content-Type: application/json');
-    }
+    // search with exact params
+    Menus.find(query)
+          .exec(function (err, menu) {
+            if (err) return res.serverError(err);
+            
+            res.ok(menu);
+          });
   },
   // run on first time, to add default data
   addDataFirstTime: function (req, res) {
